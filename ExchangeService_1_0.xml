@@ -1,0 +1,745 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://aeis.ch/wsdl/exchange_1_0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="ExchangeService_1_0" targetNamespace="http://aeis.ch/wsdl/exchange_1_0">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://aeis.ch/wsdl/exchange_1_0" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://aeis.ch/wsdl/exchange_1_0">
+  <xs:element name="ackIncomingDocument" type="tns:ackIncomingDocument"/>
+  <xs:element name="ackIncomingDocumentResponse" type="tns:ackIncomingDocumentResponse"/>
+  <xs:element name="ackReceipts" type="tns:ackReceipts"/>
+  <xs:element name="ackReceiptsResponse" type="tns:ackReceiptsResponse"/>
+  <xs:element name="ackSubmit" type="tns:ackSubmit"/>
+  <xs:element name="ackSubmitResponse" type="tns:ackSubmitResponse"/>
+  <xs:element name="getAcceptingVes" type="tns:getAcceptingVes"/>
+  <xs:element name="getAcceptingVesResponse" type="tns:getAcceptingVesResponse"/>
+  <xs:element name="getDocument" type="tns:getDocument"/>
+  <xs:element name="getDocumentBySenderIdent" type="tns:getDocumentBySenderIdent"/>
+  <xs:element name="getDocumentBySenderIdentResponse" type="tns:getDocumentBySenderIdentResponse"/>
+  <xs:element name="getDocumentResponse" type="tns:getDocumentResponse"/>
+  <xs:element name="getIncomingDocumentIdents" type="tns:getIncomingDocumentIdents"/>
+  <xs:element name="getIncomingDocumentIdentsResponse" type="tns:getIncomingDocumentIdentsResponse"/>
+  <xs:element name="getLogs" type="tns:getLogs"/>
+  <xs:element name="getLogsResponse" type="tns:getLogsResponse"/>
+  <xs:element name="getPdf" type="tns:getPdf"/>
+  <xs:element name="getPdfResponse" type="tns:getPdfResponse"/>
+  <xs:element name="getPendingReceipts" type="tns:getPendingReceipts"/>
+  <xs:element name="getPendingReceiptsResponse" type="tns:getPendingReceiptsResponse"/>
+  <xs:element name="getVes" type="tns:getVes"/>
+  <xs:element name="getVesResponse" type="tns:getVesResponse"/>
+  <xs:element name="ping" type="tns:ping"/>
+  <xs:element name="pingResponse" type="tns:pingResponse"/>
+  <xs:element name="retrieveIncomingDocument" type="tns:retrieveIncomingDocument"/>
+  <xs:element name="retrieveIncomingDocumentResponse" type="tns:retrieveIncomingDocumentResponse"/>
+  <xs:element name="retrieveIncomingPdf" type="tns:retrieveIncomingPdf"/>
+  <xs:element name="retrieveIncomingPdfResponse" type="tns:retrieveIncomingPdfResponse"/>
+  <xs:element name="submitDocument" type="tns:submitDocument"/>
+  <xs:element name="submitDocumentResponse" type="tns:submitDocumentResponse"/>
+  <xs:complexType name="ackReceipts">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" name="docIdents" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ackReceiptsResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="faultMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="faultCode" type="tns:faultCode"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+      <xs:element minOccurs="0" name="msgKey" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="submitDocument">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="xml" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="submitDocumentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDocumentBySenderIdent">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="veUid" type="xs:string"/>
+      <xs:element name="senderIdent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDocumentBySenderIdentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:documentWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="documentWS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="date" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ident" type="xs:string"/>
+      <xs:element minOccurs="0" name="status" type="tns:statusWS"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="validationErrors" nillable="true" type="tns:validationErrorWS"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="xmls" nillable="true" type="tns:documentXmlWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="validationErrorWS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="docIdent" type="xs:string"/>
+      <xs:element minOccurs="0" name="validationGroup" type="xs:string"/>
+      <xs:element minOccurs="0" name="violation" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="documentXmlWS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="docType" type="xs:string"/>
+      <xs:element minOccurs="0" name="xml" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPendingReceipts">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element minOccurs="0" name="veUid" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPendingReceiptsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:logRecordWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="logRecordWS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="action" type="xs:string"/>
+      <xs:element minOccurs="0" name="date" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="docIdent" type="xs:string"/>
+      <xs:element minOccurs="0" name="docType" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg" type="xs:string"/>
+      <xs:element minOccurs="0" name="result" type="xs:string"/>
+      <xs:element minOccurs="0" name="userName" type="xs:string"/>
+      <xs:element minOccurs="0" name="veName" type="xs:string"/>
+      <xs:element minOccurs="0" name="veUid" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDocument">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="docIdent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDocumentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:documentWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getVes">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getVesResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:companyWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="companyWS">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="acceptedSchemas" nillable="true" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="addresses" nillable="true" type="tns:companyAddressWS"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="extendedValidations" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="uid" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="companyAddressWS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adressZusatz" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="land" type="xs:string"/>
+      <xs:element minOccurs="0" name="lang" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="nameZusatz" type="xs:string"/>
+      <xs:element minOccurs="0" name="ort" type="xs:string"/>
+      <xs:element minOccurs="0" name="plz" type="xs:string"/>
+      <xs:element minOccurs="0" name="postfach" type="xs:string"/>
+      <xs:element minOccurs="0" name="strasse" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ping">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="pingResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ackIncomingDocument">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="docIdent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ackIncomingDocumentResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLogs">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element minOccurs="0" name="forUserName" type="xs:string"/>
+      <xs:element minOccurs="0" name="veUid" type="xs:string"/>
+      <xs:element minOccurs="0" name="docIdent" type="xs:string"/>
+      <xs:element minOccurs="0" name="action" type="xs:string"/>
+      <xs:element minOccurs="0" name="result" type="xs:string"/>
+      <xs:element minOccurs="0" name="from" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="to" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="maxResults" type="xs:int"/>
+      <xs:element minOccurs="0" name="offset" type="xs:int"/>
+      <xs:element minOccurs="0" name="orderAsc" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLogsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:logRecordWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getAcceptingVes">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="supportedExtendedValidations" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getAcceptingVesResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:companyWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getIncomingDocumentIdents">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element minOccurs="0" name="veUid" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getIncomingDocumentIdentsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ackSubmit">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="docIdent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ackSubmitResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="retrieveIncomingPdf">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="docIdent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="retrieveIncomingPdfResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:pdfWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pdfWS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="blob" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="docIdent" type="xs:string"/>
+      <xs:element minOccurs="0" name="locale" type="xs:string"/>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPdf">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="docIdent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPdfResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:pdfWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="retrieveIncomingDocument">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="docIdent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="retrieveIncomingDocumentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:documentWS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="faultCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GENERIC"/>
+      <xs:enumeration value="SERVER"/>
+      <xs:enumeration value="CREDENTIALS_MISSING"/>
+      <xs:enumeration value="WRONG_CREDENTIALS"/>
+      <xs:enumeration value="ILLEGAL_ACCESS"/>
+      <xs:enumeration value="ILLEGAL_ARGUMENT"/>
+      <xs:enumeration value="ILLEGAL_STATE"/>
+      <xs:enumeration value="RECIPIENT_INVALID"/>
+      <xs:enumeration value="XML_INVALID"/>
+      <xs:enumeration value="EXTENDED_VALIDATION"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="statusWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SUBMITTED"/>
+      <xs:enumeration value="PENDING_DELIVERY"/>
+      <xs:enumeration value="PENDING_ACK"/>
+      <xs:enumeration value="PENDING_RECEIPT"/>
+      <xs:enumeration value="DONE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ExchangeFault" nillable="true" type="tns:faultMessage"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ackReceipts">
+    <wsdl:part element="tns:ackReceipts" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitDocument">
+    <wsdl:part element="tns:submitDocument" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDocumentResponse">
+    <wsdl:part element="tns:getDocumentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getLogsResponse">
+    <wsdl:part element="tns:getLogsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveIncomingDocumentResponse">
+    <wsdl:part element="tns:retrieveIncomingDocumentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPendingReceipts">
+    <wsdl:part element="tns:getPendingReceipts" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitDocumentResponse">
+    <wsdl:part element="tns:submitDocumentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDocument">
+    <wsdl:part element="tns:getDocument" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getVes">
+    <wsdl:part element="tns:getVes" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ackIncomingDocument">
+    <wsdl:part element="tns:ackIncomingDocument" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getLogs">
+    <wsdl:part element="tns:getLogs" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIncomingDocumentIdentsResponse">
+    <wsdl:part element="tns:getIncomingDocumentIdentsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAcceptingVes">
+    <wsdl:part element="tns:getAcceptingVes" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ackSubmitResponse">
+    <wsdl:part element="tns:ackSubmitResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ackReceiptsResponse">
+    <wsdl:part element="tns:ackReceiptsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ackSubmit">
+    <wsdl:part element="tns:ackSubmit" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pingResponse">
+    <wsdl:part element="tns:pingResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ackIncomingDocumentResponse">
+    <wsdl:part element="tns:ackIncomingDocumentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveIncomingPdf">
+    <wsdl:part element="tns:retrieveIncomingPdf" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPdfResponse">
+    <wsdl:part element="tns:getPdfResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPdf">
+    <wsdl:part element="tns:getPdf" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveIncomingDocument">
+    <wsdl:part element="tns:retrieveIncomingDocument" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDocumentBySenderIdentResponse">
+    <wsdl:part element="tns:getDocumentBySenderIdentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAcceptingVesResponse">
+    <wsdl:part element="tns:getAcceptingVesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPendingReceiptsResponse">
+    <wsdl:part element="tns:getPendingReceiptsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ExchangeFault">
+    <wsdl:part element="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDocumentBySenderIdent">
+    <wsdl:part element="tns:getDocumentBySenderIdent" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveIncomingPdfResponse">
+    <wsdl:part element="tns:retrieveIncomingPdfResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getVesResponse">
+    <wsdl:part element="tns:getVesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ping">
+    <wsdl:part element="tns:ping" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIncomingDocumentIdents">
+    <wsdl:part element="tns:getIncomingDocumentIdents" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Exchange_1_0">
+    <wsdl:operation name="ackReceipts">
+      <wsdl:input message="tns:ackReceipts" name="ackReceipts">
+    </wsdl:input>
+      <wsdl:output message="tns:ackReceiptsResponse" name="ackReceiptsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="submitDocument">
+      <wsdl:input message="tns:submitDocument" name="submitDocument">
+    </wsdl:input>
+      <wsdl:output message="tns:submitDocumentResponse" name="submitDocumentResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentBySenderIdent">
+      <wsdl:input message="tns:getDocumentBySenderIdent" name="getDocumentBySenderIdent">
+    </wsdl:input>
+      <wsdl:output message="tns:getDocumentBySenderIdentResponse" name="getDocumentBySenderIdentResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPendingReceipts">
+      <wsdl:input message="tns:getPendingReceipts" name="getPendingReceipts">
+    </wsdl:input>
+      <wsdl:output message="tns:getPendingReceiptsResponse" name="getPendingReceiptsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDocument">
+      <wsdl:input message="tns:getDocument" name="getDocument">
+    </wsdl:input>
+      <wsdl:output message="tns:getDocumentResponse" name="getDocumentResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getVes">
+      <wsdl:input message="tns:getVes" name="getVes">
+    </wsdl:input>
+      <wsdl:output message="tns:getVesResponse" name="getVesResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <wsdl:input message="tns:ping" name="ping">
+    </wsdl:input>
+      <wsdl:output message="tns:pingResponse" name="pingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ackIncomingDocument">
+      <wsdl:input message="tns:ackIncomingDocument" name="ackIncomingDocument">
+    </wsdl:input>
+      <wsdl:output message="tns:ackIncomingDocumentResponse" name="ackIncomingDocumentResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getLogs">
+      <wsdl:input message="tns:getLogs" name="getLogs">
+    </wsdl:input>
+      <wsdl:output message="tns:getLogsResponse" name="getLogsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getAcceptingVes">
+      <wsdl:input message="tns:getAcceptingVes" name="getAcceptingVes">
+    </wsdl:input>
+      <wsdl:output message="tns:getAcceptingVesResponse" name="getAcceptingVesResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getIncomingDocumentIdents">
+      <wsdl:input message="tns:getIncomingDocumentIdents" name="getIncomingDocumentIdents">
+    </wsdl:input>
+      <wsdl:output message="tns:getIncomingDocumentIdentsResponse" name="getIncomingDocumentIdentsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ackSubmit">
+      <wsdl:input message="tns:ackSubmit" name="ackSubmit">
+    </wsdl:input>
+      <wsdl:output message="tns:ackSubmitResponse" name="ackSubmitResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveIncomingPdf">
+      <wsdl:input message="tns:retrieveIncomingPdf" name="retrieveIncomingPdf">
+    </wsdl:input>
+      <wsdl:output message="tns:retrieveIncomingPdfResponse" name="retrieveIncomingPdfResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPdf">
+      <wsdl:input message="tns:getPdf" name="getPdf">
+    </wsdl:input>
+      <wsdl:output message="tns:getPdfResponse" name="getPdfResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveIncomingDocument">
+      <wsdl:input message="tns:retrieveIncomingDocument" name="retrieveIncomingDocument">
+    </wsdl:input>
+      <wsdl:output message="tns:retrieveIncomingDocumentResponse" name="retrieveIncomingDocumentResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ExchangeFault" name="ExchangeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ExchangeService_1_0SoapBinding" type="tns:Exchange_1_0">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ackReceipts">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ackReceipts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ackReceiptsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="submitDocument">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="submitDocument">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="submitDocumentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentBySenderIdent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getDocumentBySenderIdent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDocumentBySenderIdentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPendingReceipts">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPendingReceipts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPendingReceiptsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDocument">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getDocument">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDocumentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getVes">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getVes">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getVesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ping">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ackIncomingDocument">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ackIncomingDocument">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ackIncomingDocumentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getLogs">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getLogs">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getLogsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getAcceptingVes">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAcceptingVes">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAcceptingVesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getIncomingDocumentIdents">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getIncomingDocumentIdents">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIncomingDocumentIdentsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ackSubmit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ackSubmit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ackSubmitResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveIncomingPdf">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="retrieveIncomingPdf">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="retrieveIncomingPdfResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPdf">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPdf">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPdfResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveIncomingDocument">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="retrieveIncomingDocument">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="retrieveIncomingDocumentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ExchangeFault">
+        <soap:fault name="ExchangeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ExchangeService_1_0">
+    <wsdl:port binding="tns:ExchangeService_1_0SoapBinding" name="Exchange_1_0Port">
+      <soap:address location="https://exchange.aeis.ch/exchange-server/ExchangeService_1_0"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
